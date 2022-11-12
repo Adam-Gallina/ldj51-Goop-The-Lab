@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Door : PassiveInteraction
+public class Door : DirectInteraction
 {
-    public Color activeColor = new Color(1, 1, 1, 0.5f);
-    public Color inactiveColor = new Color(1, 1, 1, 1);
+    [SerializeField] private DirectInteraction lever;
 
-    private BoxCollider2D coll;
-    private SpriteRenderer image;
+    [SerializeField] private GameObject closed;
+    [SerializeField] private GameObject open;
 
-    private void Awake()
+    private void Update()
     {
-        coll = GetComponent<BoxCollider2D>();
-        image = GetComponentInChildren<SpriteRenderer>();
+        closed.SetActive(!lever.GetStatus());
+        open.SetActive(lever.GetStatus());
     }
 
-    protected override void Activate()
+    public override bool CanInteract()
     {
-        coll.isTrigger = true;
-        image.color = activeColor;
+        return lever.GetStatus();
     }
 
-    protected override void Deactivate()
+    public override bool Interact(Transform source)
     {
-        coll.isTrigger = false;
-        image.color = inactiveColor;
+        if (!CanInteract())
+            return false;
+
+        GameController.Instance.Win();
+        return true;
     }
+
+
 }

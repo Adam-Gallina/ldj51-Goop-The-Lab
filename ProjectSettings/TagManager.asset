@@ -11,6 +11,12 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
+  - Interactive
+  - Collectible
+  - Bullet
+  - Enemy
+  - Breakable
   - 
   - 
   - 
@@ -29,14 +35,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Environment
   m_SortingLayers:
   - name: Default
     uniqueID: 0

@@ -4,5 +4,9 @@ using UnityEngine;
 
 public abstract class DirectInteraction : Interactive
 {
-    public abstract void Interact();
+    public bool requiresHand = false;
+
+    public abstract bool CanInteract();
+
+    public abstract bool Interact(Transform source);
 }

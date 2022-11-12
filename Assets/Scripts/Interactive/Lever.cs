@@ -2,12 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class Lever : DirectInteraction
 {
-    public override void Interact()
+    [SerializeField] private Transform handle;
+    [SerializeField] private float offAng;
+    [SerializeField] private float onAng;
+
+    public override bool CanInteract()
     {
-        activated = !activated;
-        Debug.Log(name + " is " + activated);
+        return true;
+    }
+
+    public override bool Interact(Transform source)
+    {
+        if (!activated)
+            TutorialController.Instance.PlayEndDoor();
+
+        activated = true;
+        handle.transform.localEulerAngles = new Vector3(0, 0, onAng);
+
+        return true;
     }
 }
